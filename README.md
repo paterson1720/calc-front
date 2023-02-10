@@ -1,4 +1,12 @@
-# Getting Started with Create React App
+# Getting Started
+
+# Check out this project live
+
+- Live API URL [https://rest-calc.onrender.com/api/v1](https://rest-calc.onrender.com/api/v1)
+- Live Frontend URL [https://calc-front.vercel.app/](https://calc-front.vercel.app/)
+
+#### Test Username: testuser
+#### Test Password: testpass1
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

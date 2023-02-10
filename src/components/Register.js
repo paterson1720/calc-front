@@ -36,6 +36,7 @@ export default function Register() {
       localStorage.setItem('auth-token', response.data.token);
       setUser({ ...user, authToken: response.data.token });
       setLoading(false);
+      history.replace('/calculator');
     } catch (error) {
       setError(error.response.data.error);
       setLoading(false);
@@ -75,6 +76,7 @@ export default function Register() {
               name="username"
               autoComplete="username"
               autoFocus
+              disabled={loading}
             />
             <TextField
               margin="normal"
@@ -85,6 +87,7 @@ export default function Register() {
               type="password"
               id="password"
               autoComplete="current-password"
+              disabled={loading}
             />
             <Button type="submit" disabled={loading} fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
               {loading ? 'Loading...' : 'Register'}

@@ -78,6 +78,7 @@ export default function Login() {
               name="username"
               autoComplete="username"
               autoFocus
+              disabled={loading}
             />
             <TextField
               margin="normal"
@@ -88,6 +89,7 @@ export default function Login() {
               type="password"
               id="password"
               autoComplete="current-password"
+              disabled={loading}
             />
             <Button disabled={loading} type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
               {loading ? '...loading' : 'Sign In'}
