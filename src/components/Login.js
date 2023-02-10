@@ -12,7 +12,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { useUser } from '../contexts/user-context';
-import { Alert } from '@mui/material';
+import { Alert, CircularProgress } from '@mui/material';
 
 const theme = createTheme();
 
@@ -68,6 +68,11 @@ export default function Login() {
             Sign in
           </Typography>
           {error && <Alert severity="error">{error}</Alert>}
+          {loading && (
+            <Box sx={{ display: 'grid', placeItems: 'center', width: '100%' }}>
+              <CircularProgress />
+            </Box>
+          )}
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
@@ -92,7 +97,7 @@ export default function Login() {
               disabled={loading}
             />
             <Button disabled={loading} type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-              {loading ? '...loading' : 'Sign In'}
+              {loading ? '...Signing in' : 'Sign In'}
             </Button>
             <Grid container>
               <Grid item>

@@ -1,4 +1,4 @@
-import { Alert, Box, Button, Container, Typography } from '@mui/material';
+import { Alert, Box, Button, CircularProgress, Container, Typography } from '@mui/material';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useUser } from '../contexts/user-context';
@@ -22,6 +22,7 @@ export default function Calculator() {
   const handleOperationChange = (e) => {
     const { value } = e.target;
     setResultData(null);
+    setRequestData({});
     setOperation(operations[value]);
     if (value === 'random_string') {
       setRequestData({ upperalpha: true, loweralpha: true, length: 20 });
@@ -97,6 +98,11 @@ export default function Calculator() {
         <Typography component="h1" variant="h3" sx={{ mt: 8, textAlign: 'center' }}>
           Calculator
         </Typography>
+        {loading && (
+          <Box sx={{ display: 'grid', placeItems: 'center', width: '100%' }}>
+            <CircularProgress />
+          </Box>
+        )}
         {resultData && (
           <Alert severity="success">
             <Typography component="h1" variant="h5" sx={{ mt: 1, textAlign: 'center' }}>
@@ -111,7 +117,7 @@ export default function Calculator() {
         <form onSubmit={handleSubmit} id="calculator-form">
           <Box sx={boxStyles}>
             <Typography component="label">Select operation type</Typography>
-            <select value={operation.type} onChange={handleOperationChange}>
+            <select disabled={loading} value={operation.type} onChange={handleOperationChange}>
               {Object.values(operations).map((item) => (
                 <option key={item.type} value={item.type}>
                   {item.label}
@@ -128,8 +134,9 @@ export default function Calculator() {
                   name="firstNumber"
                   type="number"
                   onChange={handleInputChange}
-                  value={requestData.number}
+                  value={requestData.firstNumber || ''}
                   required
+                  disabled={loading}
                 />
               </Box>
               <Box sx={boxStyles}>
@@ -138,8 +145,9 @@ export default function Calculator() {
                   name="secondNumber"
                   type="number"
                   onChange={handleInputChange}
-                  value={requestData.number}
+                  value={requestData.secondNumber || ''}
                   required
+                  disabled={loading}
                 />
               </Box>
             </>
@@ -154,6 +162,7 @@ export default function Calculator() {
                 onChange={handleInputChange}
                 value={requestData.number || ''}
                 required
+                disabled={loading}
               />
             </Box>
           )}
@@ -162,7 +171,12 @@ export default function Calculator() {
             <div>
               <Box sx={boxStyles}>
                 <Typography component="label">Include uppercase letters</Typography>
-                <select name="upperalpha" value={requestData.upperalpha} onChange={handleInputChange}>
+                <select
+                  name="upperalpha"
+                  disabled={loading}
+                  value={requestData.upperalpha ? 'Yes' : 'No'}
+                  onChange={handleInputChange}
+                >
                   {['Yes', 'No'].map((item) => (
                     <option key={item} value={item}>
                       {item}
@@ -172,7 +186,12 @@ export default function Calculator() {
               </Box>
               <Box sx={boxStyles}>
                 <Typography component="label">Include lowercase letters</Typography>
-                <select name="loweralpha" value={requestData.loweralpha} onChange={handleInputChange}>
+                <select
+                  name="loweralpha"
+                  disabled={loading}
+                  value={requestData.loweralpha ? 'Yes' : 'No'}
+                  onChange={handleInputChange}
+                >
                   {['Yes', 'No'].map((item) => (
                     <option key={item} value={item}>
                       {item}
@@ -186,12 +205,13 @@ export default function Calculator() {
                   <input
                     type="range"
                     name="length"
-                    value={requestData.length}
+                    value={requestData.length || ''}
                     step={1}
                     min={1}
                     max={20}
                     onChange={handleInputChange}
                     required
+                    disabled={loading}
                   />
                   <span>{requestData.length}</span>
                 </Box>
@@ -204,7 +224,7 @@ export default function Calculator() {
           </Alert>
 
           <Button type="submit" disabled={loading} fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-            {loading ? 'loading' : `Calculate`}
+            {loading ? 'Calculating...' : `Calculate`}
           </Button>
         </form>
       </Container>

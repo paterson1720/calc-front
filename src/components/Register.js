@@ -11,7 +11,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { useUser } from '../contexts/user-context';
-import { Alert } from '@mui/material';
+import { Alert, CircularProgress } from '@mui/material';
 
 const theme = createTheme();
 
@@ -66,6 +66,11 @@ export default function Register() {
             Register
           </Typography>
           {error && <Alert severity="error">{error}</Alert>}
+          {loading && (
+            <Box sx={{ display: 'grid', placeItems: 'center', width: '100%' }}>
+              <CircularProgress />
+            </Box>
+          )}
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
@@ -90,7 +95,7 @@ export default function Register() {
               disabled={loading}
             />
             <Button type="submit" disabled={loading} fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-              {loading ? 'Loading...' : 'Register'}
+              {loading ? 'Registering...' : 'Register'}
             </Button>
           </Box>
         </Box>
