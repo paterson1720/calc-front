@@ -61,6 +61,7 @@ export default function Calculator() {
       setLoading(false);
     } catch (error) {
       setLoading(false);
+      setError(error.response.data.error);
       console.error(error.response.data);
     }
   };
