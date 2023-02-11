@@ -4,7 +4,7 @@ import { useUser } from '../contexts/user-context';
 
 export default function Protected({ children }) {
   const { user } = useUser();
-  if (!user.loading) {
+  if (user.loading) {
     return (
       <div style={{ display: 'grid', placeItems: 'center' }}>
         <CircularProgress />
