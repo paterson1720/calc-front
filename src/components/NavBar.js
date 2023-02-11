@@ -113,7 +113,7 @@ function NavBar() {
             variant="h5"
             noWrap
             component="a"
-            href=""
+            href="/"
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
@@ -127,6 +127,7 @@ function NavBar() {
           >
             RESTCALC
           </Typography>
+
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Link key={page.label} to={page.path}>

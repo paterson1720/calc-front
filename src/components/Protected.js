@@ -4,6 +4,7 @@ import { useUser } from '../contexts/user-context';
 
 export default function Protected({ children }) {
   const { user } = useUser();
+
   if (user.loading) {
     return (
       <div style={{ display: 'grid', placeItems: 'center' }}>
@@ -20,5 +21,6 @@ export default function Protected({ children }) {
       </div>
     );
   }
+
   return children;
 }

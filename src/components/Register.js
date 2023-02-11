@@ -8,8 +8,9 @@ import VerifiedUserOutlined from '@mui/icons-material/VerifiedUserOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Grid from '@mui/material/Grid';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useUser } from '../contexts/user-context';
 import { Alert, CircularProgress } from '@mui/material';
 
@@ -97,6 +98,13 @@ export default function Register() {
             <Button type="submit" disabled={loading} fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
               {loading ? 'Registering...' : 'Register'}
             </Button>
+            <Grid container>
+              <Grid item>
+                <Link to="/" variant="body2">
+                  {'Already have an account? sign in'}
+                </Link>
+              </Grid>
+            </Grid>
           </Box>
         </Box>
       </Container>

@@ -10,25 +10,22 @@ const boxStyles = {
   flexDirection: 'column',
 };
 
+const initialRequestData = { upperalpha: true, loweralpha: true, length: 20 };
+
 export default function Calculator() {
   const { user } = useUser();
   const [operations, setOperations] = useState([]);
   const [operation, setOperation] = useState({});
-  const [requestData, setRequestData] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [resultData, setResultData] = useState(null);
+  const [requestData, setRequestData] = useState(initialRequestData);
 
   const handleOperationChange = (e) => {
     const { value } = e.target;
     setResultData(null);
-    setRequestData({});
+    setRequestData(initialRequestData);
     setOperation(operations[value]);
-    if (value === 'random_string') {
-      setRequestData({ upperalpha: true, loweralpha: true, length: 20 });
-    } else {
-      setRequestData({ values: [] });
-    }
   };
 
   const handleSubmit = async (event) => {
@@ -57,7 +54,7 @@ export default function Calculator() {
         headers: { Authorization: user.authToken },
       });
       setResultData(response.data);
-      setRequestData({});
+      setRequestData(initialRequestData);
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -83,7 +80,6 @@ export default function Calculator() {
           obj[type] = item;
           return obj;
         }, {});
-        console.log(transformedOperations);
         setOperations(transformedOperations);
         setOperation(transformedOperations['addition']);
       } catch (error) {
