@@ -6,6 +6,7 @@ import { Box, IconButton } from '@mui/material';
 import Protected from './Protected';
 import { useUser } from '../contexts/user-context';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const columns = [
   {
@@ -49,8 +50,14 @@ const Records = () => {
     const url = `${process.env.REACT_APP_API_BASE_URL}/record/${recordId}`;
     axios
       .delete(url, { headers: { Authorization: user.authToken } })
-      .then(() => getData())
-      .catch((error) => console.error(error));
+      .then(() => {
+        toast.success('Deleted successfully!');
+        getData();
+      })
+      .catch((error) => {
+        toast.error('Error deleting record. Try again!');
+        console.error(error);
+      });
   };
 
   useEffect(() => {
